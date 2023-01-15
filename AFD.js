@@ -2,7 +2,7 @@ import { Q, Σ, δ, q0, F } from './5-tupla.js';
 import { croak, win, lose } from './sonidos.js';
 import { displayModal } from './modal.js';
 
-let estadoLeido = q0;
+let ultimoEstado = q0;
 let clicks = 0;
 
 function esEstadoFinal(estado) {
@@ -25,9 +25,8 @@ function esAceptada(estadoActual, cadena) {
         if (estadoActual == Q[i]) {
             for (let j = 0; j < Σ.length; j++) {
                 if (cadena[0] == Σ[j]) {
-                
-                   console.log(`${estadoActual}     ${cadena[0]}      ${δ[i][j + 1]}\n`);
 
+                    console.log(`${estadoActual}     ${cadena[0]}      ${δ[i][j + 1]}\n`);
 
                     if (!(estadoActual == δ[i][j + 1])) {
                         croak();
@@ -48,7 +47,6 @@ function esAceptada(estadoActual, cadena) {
                         win();
                         return true;
                     }
-
                 }
             }
         }
@@ -56,10 +54,9 @@ function esAceptada(estadoActual, cadena) {
     return false;
 }
 
-
 function swapElements(obj1, obj2) {
-    var parent2 = obj2.parentNode;
-    var next2 = obj2.nextSibling;
+    let parent2 = obj2.parentNode;
+    let next2 = obj2.nextSibling;
     if (next2 === obj1) {
         parent2.insertBefore(obj1, obj2);
     } else {
@@ -72,11 +69,7 @@ function swapElements(obj1, obj2) {
     }
 }
 
-
-let ultimoEstado = q0;
-
 function puedeSaltar() {
-    croak(); 
     clicks += 1;
     esAceptada(ultimoEstado, this.id);
 }

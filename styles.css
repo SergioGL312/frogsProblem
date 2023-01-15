@@ -50,9 +50,9 @@ div.content img {
   height: 200px;
   margin: auto;
   text-align: center;
-  border-radius: 29px 29px 29px 29px;
-  -webkit-border-radius: 29px 29px 29px 29px;
   -moz-border-radius: 29px 29px 29px 29px;
+  -webkit-border-radius: 29px 29px 29px 29px;
+  border-radius: 29px 29px 29px 29px;
 }
 
 .resultado {

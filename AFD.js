@@ -1,4 +1,5 @@
 import { Q, Σ, δ, q0, F } from './5-tupla.js';
+import { croak, win, lose } from './sonidos.js';
 let estadoLeido = q0;
 
 
@@ -23,12 +24,17 @@ function esAceptada(estadoActual, cadena) {
                 if (cadena[0] == Σ[j]) {
                     console.log(`${estadoActual}     ${cadena[0]}      ${δ[i][j + 1]}\n`);  
 
+                    if(estadoActual == 72 || δ[i][j + 1] == 72) {
+                        lose();
+                    }
+
                     if(!(estadoActual == δ[i][j + 1])){
                         swapDivs();
                         estadoLeido = δ[i][j + 1];
                     }
                     
                     if (esAceptada(δ[i][j + 1], cadena.substring(1))) {
+                        win();
                         return true;
                     }
                 }
@@ -55,13 +61,14 @@ function swapElements(obj1, obj2) {
 }
 
 function swapDivs() {
+    croak();
     swapElements(document.getElementById(divId), document.getElementById('_'));
 }
 
 var divId;
 
 function puedeSaltar() {
-
+    // croak(); Todas las ranas sonarian
     divId = this.id;
     esAceptada(estadoLeido, divId);
 }
@@ -71,5 +78,3 @@ const divs = [... document.querySelectorAll('#content div')];
 divs.forEach(function(div){
     div.addEventListener('click', puedeSaltar, false);
 });
-
-

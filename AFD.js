@@ -1,5 +1,5 @@
 import { Q, Σ, δ, q0, F } from './5-tupla.js';
-
+import { croak, win, lose } from './sonidos.js';
 
 function esEstadoFinal(estado) {
     for (let i = 0; i < F.length; i++) {
@@ -21,10 +21,11 @@ function esAceptada(estadoActual, cadena) {
         if (estadoActual == Q[i]) {
             for (let j = 0; j < Σ.length; j++) {
                 if (cadena[0] == Σ[j]) {
-
-                    console.log(`${estadoActual}     ${cadena[0]}      ${δ[i][j + 1]}\n`);
+                
+                   console.log(`${estadoActual}     ${cadena[0]}      ${δ[i][j + 1]}\n`);
 
                     if (!(estadoActual == δ[i][j + 1])) {
+                        croak();
                         swapElements(document.getElementById(cadena), document.getElementById('_'));
                         ultimoEstado = δ[i][j + 1];
                     } else {
@@ -32,10 +33,12 @@ function esAceptada(estadoActual, cadena) {
                     }
 
                     if (δ[i][j + 1] == δ.length) {
+                        lose();
                         console.log("loser");
                     }
 
                     if (esAceptada(δ[i][j + 1], cadena.substring(1))) {
+                        win();
                         return true;
                     }
 
@@ -62,6 +65,7 @@ function swapElements(obj1, obj2) {
     }
 }
 
+
 let ultimoEstado = q0;
 
 function puedeSaltar() {
@@ -73,5 +77,3 @@ const divs = [...document.querySelectorAll('#content div')];
 divs.forEach(function (div) {
     div.addEventListener('click', puedeSaltar, false);
 });
-
-

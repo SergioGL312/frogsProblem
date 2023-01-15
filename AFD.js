@@ -1,7 +1,5 @@
 import { Q, Σ, δ, q0, F } from './5-tupla.js';
 import { croak, win, lose } from './sonidos.js';
-let estadoLeido = q0;
-
 
 function esEstadoFinal(estado) {
     for (let i = 0; i < F.length; i++) {
@@ -15,6 +13,7 @@ function esEstadoFinal(estado) {
 function esAceptada(estadoActual, cadena) {
 
     if (esEstadoFinal(estadoActual) && cadena.length == 0) {
+        console.log("winner");
         return true;
     }
 
@@ -22,21 +21,27 @@ function esAceptada(estadoActual, cadena) {
         if (estadoActual == Q[i]) {
             for (let j = 0; j < Σ.length; j++) {
                 if (cadena[0] == Σ[j]) {
-                    console.log(`${estadoActual}     ${cadena[0]}      ${δ[i][j + 1]}\n`);  
+                
+                   console.log(`${estadoActual}     ${cadena[0]}      ${δ[i][j + 1]}\n`);
 
-                    if(estadoActual == 72 || δ[i][j + 1] == 72) {
+                    if (!(estadoActual == δ[i][j + 1])) {
+                        croak();
+                        swapElements(document.getElementById(cadena), document.getElementById('_'));
+                        ultimoEstado = δ[i][j + 1];
+                    } else {
+                        console.log("invalid");
+                    }
+
+                    if (δ[i][j + 1] == δ.length) {
                         lose();
+                        console.log("loser");
                     }
 
-                    if(!(estadoActual == δ[i][j + 1])){
-                        swapDivs();
-                        estadoLeido = δ[i][j + 1];
-                    }
-                    
                     if (esAceptada(δ[i][j + 1], cadena.substring(1))) {
                         win();
                         return true;
                     }
+
                 }
             }
         }
@@ -60,21 +65,15 @@ function swapElements(obj1, obj2) {
     }
 }
 
-function swapDivs() {
-    croak();
-    swapElements(document.getElementById(divId), document.getElementById('_'));
-}
 
-var divId;
+let ultimoEstado = q0;
 
 function puedeSaltar() {
-    // croak(); Todas las ranas sonarian
-    divId = this.id;
-    esAceptada(estadoLeido, divId);
+    esAceptada(ultimoEstado, this.id);
 }
 
-const divs = [... document.querySelectorAll('#content div')];
+const divs = [...document.querySelectorAll('#content div')];
 
-divs.forEach(function(div){
+divs.forEach(function (div) {
     div.addEventListener('click', puedeSaltar, false);
 });

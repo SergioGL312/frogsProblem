@@ -14,9 +14,9 @@ export function displayModal(verificar, clicks) {
     modal.style.display = "flex";
     modal.style.animation = "aparecer 1s forwards";
 
-    const mdlBackground = document.querySelector(".modal-background");
+    const btnClose = document.querySelector(".btn-close");
 
-    mdlBackground.addEventListener("click", () => {
-        mdlBackground.style.display = "none";
+    btnClose.addEventListener("click", () => {
+        modal.style.display = "none";
     });
-}
+}   

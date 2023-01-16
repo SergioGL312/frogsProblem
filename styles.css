@@ -44,6 +44,19 @@ div.content img {
   opacity: 0;
 }
 
+.btn-close {
+  position: absolute;
+  font-size: 30px;
+  top: 120px;
+  right: 400px;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-close:hover {
+  color: #000000;
+}
+
 .modal {
   background: #fff;
   width: 400px;

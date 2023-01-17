@@ -16,7 +16,9 @@ export function displayModal(verificar, clicks) {
 
     const btnClose = document.querySelector(".btn-close");
 
+
     btnClose.addEventListener("click", () => {
         modal.style.display = "none";
+        location.reload();
     });
 }   

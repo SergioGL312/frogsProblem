@@ -17,7 +17,6 @@ function esEstadoFinal(estado) {
 function esAceptada(estadoActual, cadena) {
 
     if (esEstadoFinal(estadoActual) && cadena.length == 0) {
-        console.log("winner");
         return true;
     }
 
@@ -45,6 +44,7 @@ function esAceptada(estadoActual, cadena) {
                     if (esAceptada(δ[i][j + 1], cadena.substring(1))) {
                         displayModal(true, clicks);
                         win();
+                        console.log("winner");
                         return true;
                     }
                 }
@@ -60,12 +60,41 @@ function swapElements(obj1, obj2) {
     if (next2 === obj1) {
         parent2.insertBefore(obj1, obj2);
     } else {
-        obj1.parentNode.insertBefore(obj2, obj1);
-        if (next2) {
-            parent2.insertBefore(obj1, next2);
+
+        let anterior = obj1.previousElementSibling;
+        let siguiente = obj1.nextElementSibling;
+
+        let anteriorId = anterior ? anterior.id : '';
+        let siguienteId = siguiente ? siguiente.id : '';
+
+        console.log(anteriorId);
+        console.log(siguienteId);
+
+        if (siguienteId == '_' ) {
+            console.log("salto simple verde");
+            obj1.style.animation = "shortJumpV .8s linear";
+        } else if (anteriorId == '_' ) {
+            console.log("salto simple azul");
+            obj1.style.animation = "shortJumpA .8s linear";
+        } else if (obj1.className == 'v') {
+            console.log("salto doble verde");
+            obj1.style.animation = "largeJumpV .8s linear";
         } else {
-            parent2.appendChild(obj1);
+            console.log("salto doble azul");
+            obj1.style.animation = "largeJumpA .8s linear";
         }
+
+        setTimeout(() => {
+            obj1.style.animation = "none";
+            obj1.parentNode.insertBefore(obj2, obj1);
+            if (next2) {
+                parent2.insertBefore(obj1, next2);
+            } else {
+                parent2.appendChild(obj1);
+            }
+        }, 760);
+
+
     }
 }
 
@@ -75,7 +104,10 @@ function puedeSaltar() {
 }
 
 const divs = [...document.querySelectorAll('#content div')];
+console.log(divs);
 
 divs.forEach(function (div) {
     div.addEventListener('click', puedeSaltar, false);
 });
+
+

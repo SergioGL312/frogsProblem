@@ -20,27 +20,34 @@ function esAceptada(estadoActual, cadena) {
         return true;
     }
 
+    // recorro los estados
     for (let i = 0; i < Q.length; i++) {
+        // si encuentro el estado actual 
         if (estadoActual == Q[i]) {
+            // busco cual seria el estado siguiente
             for (let j = 0; j < Σ.length; j++) {
+                // si el simboolo que estoy evaluando corresponde con el simbolo el la funcion de transicion
                 if (cadena[0] == Σ[j]) {
-
-                    console.log(`${estadoActual}     ${cadena[0]}      ${δ[i][j + 1]}\n`);
-
+                 
+                    console.log(`${estadoActual}     ${cadena[0]}      ${δ[i][j+1]}\n`);
+                    
                     if (!(estadoActual == δ[i][j + 1])) {
                         croak();
                         swapElements(document.getElementById(cadena), document.getElementById('_'));
                         ultimoEstado = δ[i][j + 1];
                     } else {
+                        // si el estado actual = estado siguiente 
                         console.log("invalid");
                     }
 
+                    // si el estado suiguiente == 72
                     if (δ[i][j + 1] == δ.length) {
                         displayModal(false, clicks);
                         lose();
                         console.log("loser");
                     }
 
+                    // si es aceptado
                     if (esAceptada(δ[i][j + 1], cadena.substring(1))) {
                         displayModal(true, clicks);
                         win();

@@ -1,4 +1,0 @@
-
-function jump(){
-    const frog = 
-}

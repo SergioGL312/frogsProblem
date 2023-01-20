@@ -1,6 +1,6 @@
 export function croak() {
     var frog_croak = new Audio();
-    frog_croak.src = "./audios/frog_croak_2.mp3";
+    frog_croak.src = "./audios/jumping-sound.mp3";
     frog_croak.play();
 }
 
